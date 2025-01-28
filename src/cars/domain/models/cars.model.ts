@@ -4,7 +4,7 @@ export interface CarModel {
   year: string
   valuePerDay: number
   numberOfPassengers: number
-  accessories: TypeAccessories
+  accessories: TypeAccessories[]
   createdAt?: Date
   updatedAt?: Date
 }
