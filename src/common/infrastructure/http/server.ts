@@ -10,4 +10,6 @@ dataSource
       console.log('API Docs available at GET /docs')
     })
   })
-  .catch(error => console.log(error))
+  .catch(error => {
+    console.error('Error during Data Source initialization', error)
+  })
