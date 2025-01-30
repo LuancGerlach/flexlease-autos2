@@ -4,7 +4,7 @@ import { compilerOptions } from './tsconfig.json'
 export default {
   moduleFileExtensions: ['ts', 'js', 'json'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: '<rootDir>/src/',
+    prefix: '<rootDir>/',
   }),
   testRegex: '.*\\.spec\\.ts$',
   transform: {
