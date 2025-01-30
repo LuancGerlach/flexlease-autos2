@@ -18,6 +18,6 @@ export type CreateCarProps = {
 
 export interface CarsRepository
   extends RepositoryInterface<CarModel, CreateCarProps> {
-  findByName(name: string): Promise<CarModel>
-  findAllById(ids: CarId[]): Promise<CarModel[]>
+  findAllByModel(model: string): Promise<CarModel[]>
+  findAllById(carIds: CarId[]): Promise<CarModel[]>
 }
