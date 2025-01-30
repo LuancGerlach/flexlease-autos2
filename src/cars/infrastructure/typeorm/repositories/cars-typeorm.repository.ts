@@ -9,48 +9,81 @@ import {
   SearchOutput,
 } from '@/common/domain/repositories/repository.interface'
 import { Car } from '../entities/cars.entity'
-import { Repository } from 'typeorm'
+import { Repository, In, ILike } from 'typeorm'
 import { dataSource } from '@/common/infrastructure/typeorm'
 import { NotFoundError } from '@/common/domain/errors/not-found-error'
 
 export class CarsTypeormRepository implements CarsRepository {
-  sorteableFields = ['model', 'year', 'created_at']
+  sortableFields = ['model', 'year', 'created_at']
   carsRepository: Repository<Car>
 
   constructor() {
     this.carsRepository = dataSource.getRepository(Car)
   }
 
-  findAllByModel(model: string): Promise<CarModel[]> {
-    throw new Error('Method not implemented.')
+  async findAllByModel(model: string): Promise<CarModel[]> {
+    const carsFound = await this.carsRepository.find({ where: { model } })
+    if (!carsFound) {
+      throw new NotFoundError(`No cars found using model ${model}`)
+    }
+    return carsFound
   }
 
-  findAllById(carIds: CarId[]): Promise<CarModel[]> {
-    throw new Error('Method not implemented.')
+  async findAllById(carIds: CarId[]): Promise<CarModel[]> {
+    const ids = carIds.map(carId => carId.id)
+    const carsFound = await this.carsRepository.find({
+      where: { id: In(ids) },
+    })
+    return carsFound
   }
 
   create(props: CreateCarProps): CarModel {
-    throw new Error('Method not implemented.')
+    return this.carsRepository.create(props)
   }
 
   insert(model: CarModel): Promise<CarModel> {
-    throw new Error('Method not implemented.')
+    return this.carsRepository.save(model)
   }
 
   async findById(id: string): Promise<CarModel> {
     return this._get(id)
   }
 
-  update(model: CarModel): Promise<CarModel> {
-    throw new Error('Method not implemented.')
+  async update(model: CarModel): Promise<CarModel> {
+    await this._get(model.id)
+    await this.carsRepository.update({ id: model.id }, model)
+    return model
   }
 
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.')
+  async delete(id: string): Promise<void> {
+    await this._get(id)
+    await this.carsRepository.delete({ id })
   }
 
-  search(props: SearchInput): Promise<SearchOutput<CarModel>> {
-    throw new Error('Method not implemented.')
+  async search(props: SearchInput): Promise<SearchOutput<CarModel>> {
+    const validSort = this.sortableFields.includes(props.sort) || false
+    const dirOps = ['asc', 'desc']
+    const validSortDir =
+      (props.sort_dir && dirOps.includes(props.sort_dir.toLowerCase())) || false
+    const orderByField = validSort ? props.sort : 'created_at'
+    const orderByDir = validSortDir ? props.sort_dir : 'desc'
+
+    const [cars, total] = await this.carsRepository.findAndCount({
+      ...(props.filter && { where: { model: ILike(props.filter) } }),
+      order: { [orderByField]: orderByDir },
+      skip: (props.page - 1) * props.per_page,
+      take: props.per_page,
+    })
+
+    return {
+      items: cars,
+      per_page: props.per_page,
+      total,
+      current_page: props.page,
+      sort: orderByField,
+      sort_dir: orderByDir,
+      filter: props.filter,
+    }
   }
 
   protected async _get(id: string): Promise<CarModel> {
