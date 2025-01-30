@@ -69,13 +69,13 @@ describe('CarsInMemoryRepository units tests', () => {
 
   describe('applySort', () => {
     it('should sort items by created_at when sort param is null', async () => {
-      const createdAt = new Date()
-      const car1 = CarsDataBuilder({ createdAt: createdAt })
+      const created_at = new Date()
+      const car1 = CarsDataBuilder({ created_at: created_at })
       const car2 = CarsDataBuilder({
-        createdAt: new Date(createdAt.getTime() + 100),
+        created_at: new Date(created_at.getTime() + 100),
       })
       const car3 = CarsDataBuilder({
-        createdAt: new Date(createdAt.getTime() + 200),
+        created_at: new Date(created_at.getTime() + 200),
       })
       const items = [car1, car2, car3]
 

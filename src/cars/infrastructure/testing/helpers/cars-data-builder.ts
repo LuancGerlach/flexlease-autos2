@@ -15,7 +15,7 @@ export function CarsDataBuilder(props: Partial<CarModel> = {}): CarModel {
     valuePerDay: props.valuePerDay || parseFloat(faker.finance.amount()),
     numberOfPassengers: props.numberOfPassengers || 5,
     accessories: props.accessories || [accessoriesAirbag],
-    createdAt: props.createdAt || new Date(),
-    updatedAt: props.updatedAt || new Date(),
+    created_at: props.created_at || new Date(),
+    updated_at: props.updated_at || new Date(),
   }
 }

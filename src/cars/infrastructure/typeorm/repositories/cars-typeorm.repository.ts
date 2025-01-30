@@ -22,11 +22,11 @@ export class CarsTypeormRepository implements CarsRepository {
   }
 
   async findAllByModel(model: string): Promise<CarModel[]> {
-    const carsFound = await this.carsRepository.find({ where: { model } })
-    if (!carsFound) {
-      throw new NotFoundError(`No cars found using model ${model}`)
+    const cars = await this.carsRepository.find({ where: { model } })
+    if (cars.length === 0) {
+      throw new NotFoundError(`Car not found using model ${model}`)
     }
-    return carsFound
+    return cars
   }
 
   async findAllById(carIds: CarId[]): Promise<CarModel[]> {

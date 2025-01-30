@@ -5,8 +5,8 @@ export interface CarModel {
   valuePerDay: number
   numberOfPassengers: number
   accessories: TypeAccessories[]
-  createdAt?: Date
-  updatedAt?: Date
+  created_at: Date
+  updated_at: Date
 }
 
 export type TypeAccessories = {
