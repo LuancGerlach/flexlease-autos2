@@ -115,7 +115,7 @@ export abstract class InMemoryRepository<Model extends ModelProps>
   protected async _get(id: string): Promise<Model> {
     const model = this.items.find(item => item.id === id)
     if (!model) {
-      throw new NotFoundError('Model not found using id ${id}')
+      throw new NotFoundError(`Model not found using id ${id}`)
     }
     return model
   }
