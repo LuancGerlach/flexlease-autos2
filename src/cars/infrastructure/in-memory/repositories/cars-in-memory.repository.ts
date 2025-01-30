@@ -46,6 +46,6 @@ export class CarsInMemoryRepository
     sort: string | null,
     sort_dir: string | null,
   ): Promise<CarModel[]> {
-    return super.applySort(items, sort || 'created_at', sort_dir || 'desc')
+    return super.applySort(items, sort ?? 'created_at', sort_dir ?? 'desc')
   }
 }
