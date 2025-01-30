@@ -28,10 +28,10 @@ export class Car implements CarModel {
   accessories: TypeAccessories[]
 
   @CreateDateColumn()
-  createdAt: Date
+  created_at: Date
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updated_at: Date
 }
 
 export type TypeAccessories = {
