@@ -21,8 +21,4 @@ describe('CarsTypeormRepository integration tests', () => {
     ormRepository = new CarsTypeormRepository()
     ormRepository.carsRepository = testDataSource.getRepository(Car)
   })
-
-  describe('method', () => {
-    it('should', () => {})
-  })
 })

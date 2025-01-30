@@ -6,12 +6,12 @@ export type CarId = {
 }
 
 export type CreateCarProps = {
-  id: string
+  id?: string
   model: string
   year: string
   valuePerDay: number
   numberOfPassengers: number
-  accessories: string[]
+  accessories: { id: string; description: string }[]
   createdAt: Date
   updatedAt: Date
 }
