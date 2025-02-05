@@ -1,5 +1,6 @@
 import { CarsRepository } from '@/cars/domain/repositories/cars.repository'
 import { BadRequestError } from '@/common/domain/errors/bad-request-error'
+import { randomUUID } from 'node:crypto'
 
 export namespace CreateCarUseCase {
   export type Input = {
@@ -7,12 +8,12 @@ export namespace CreateCarUseCase {
     year: string
     valuePerDay: number
     numberOfPassengers: number
-    accessories: TypeAccessories[]
+    accessories: TypeAccessoriesInput[]
   }
 
-  export type TypeAccessories = {
-    id: string
-    description: string
+  export type TypeAccessoriesInput = {
+    id?: string
+    description?: string
   }
 
   export type Output = {
@@ -21,9 +22,14 @@ export namespace CreateCarUseCase {
     year: string
     valuePerDay: number
     numberOfPassengers: number
-    accessories: TypeAccessories[]
+    accessories: TypeAccessoriesOutput[]
     created_at: Date
     updated_at: Date
+  }
+
+  export type TypeAccessoriesOutput = {
+    id: string
+    description: string
   }
 
   export class UseCase {
@@ -42,13 +48,13 @@ export namespace CreateCarUseCase {
         throw new BadRequestError('Car year must be between 1950 and 2025')
       }
 
-      const accessoryDescriptions = input.accessories.map(
-        accessory => accessory.description,
-      )
-      if (
-        new Set(accessoryDescriptions).size !== accessoryDescriptions.length
-      ) {
-        throw new BadRequestError('Accessory must be unique')
+      const uniqueDescriptions = new Set<string>()
+      for (const accessory of input.accessories) {
+        if (uniqueDescriptions.has(accessory.description)) {
+          throw new BadRequestError('Accessory descriptions must be unique')
+        }
+        uniqueDescriptions.add(accessory.description)
+        accessory.id = accessory.id ?? randomUUID()
       }
 
       const car = this.repository.create(input)

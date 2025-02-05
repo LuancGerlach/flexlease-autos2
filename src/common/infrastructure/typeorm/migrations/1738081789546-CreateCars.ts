@@ -23,13 +23,13 @@ export class CreateCars1738081789546 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'value_per_day',
+            name: 'valuePerDay',
             type: 'decimal',
             precision: 10,
             scale: 2,
           },
           {
-            name: 'number_of_passengers',
+            name: 'numberOfPassengers',
             type: 'int',
           },
           {
