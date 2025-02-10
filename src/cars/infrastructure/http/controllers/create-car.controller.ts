@@ -1,9 +1,7 @@
+import 'reflect-metadata'
 import { AppError } from '@/common/domain/errors/app-error'
 import { z } from 'zod'
-import { CarsTypeormRepository } from '../../typeorm/repositories/cars-typeorm.repository'
-import { dataSource } from '@/common/infrastructure/typeorm'
 import { CreateCarUseCase } from '@/cars/application/usecases/create-car.usecase'
-import { Car } from '../../typeorm/entities/cars.entity'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
@@ -37,8 +35,6 @@ export async function createCarController(
   const { model, year, valuePerDay, numberOfPassengers, accessories } =
     validatedData.data
 
-  const repository: CarsTypeormRepository = container.resolve('CarRepository')
-  repository.carsRepository = dataSource.getRepository(Car)
   const createCarUseCase: CreateCarUseCase.UseCase =
     container.resolve('CreateCarUseCase')
 

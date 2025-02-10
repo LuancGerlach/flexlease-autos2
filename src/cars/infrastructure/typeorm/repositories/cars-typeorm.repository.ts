@@ -10,16 +10,17 @@ import {
 } from '@/common/domain/repositories/repository.interface'
 import { Car } from '../entities/cars.entity'
 import { Repository, In, ILike } from 'typeorm'
-import { dataSource } from '@/common/infrastructure/typeorm'
 import { NotFoundError } from '@/common/domain/errors/not-found-error'
+import { inject, injectable } from 'tsyringe'
 
+@injectable()
 export class CarsTypeormRepository implements CarsRepository {
   sortableFields = ['model', 'year', 'created_at']
-  carsRepository: Repository<Car>
 
-  constructor() {
-    this.carsRepository = dataSource.getRepository(Car)
-  }
+  constructor(
+    @inject('CarsDefaultTypeormRepository')
+    private carsRepository: Repository<Car>,
+  ) {}
 
   async findAllByModel(model: string): Promise<CarModel[]> {
     const cars = await this.carsRepository.find({ where: { model } })
