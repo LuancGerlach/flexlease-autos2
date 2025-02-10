@@ -5,6 +5,7 @@ import { dataSource } from '@/common/infrastructure/typeorm'
 import { CreateCarUseCase } from '@/cars/application/usecases/create-car.usecase'
 import { Car } from '../../typeorm/entities/cars.entity'
 import { Request, Response } from 'express'
+import { container } from 'tsyringe'
 
 export async function createCarController(
   request: Request,
@@ -36,9 +37,10 @@ export async function createCarController(
   const { model, year, valuePerDay, numberOfPassengers, accessories } =
     validatedData.data
 
-  const repository = new CarsTypeormRepository()
+  const repository: CarsTypeormRepository = container.resolve('CarRepository')
   repository.carsRepository = dataSource.getRepository(Car)
-  const createCarUseCase = new CreateCarUseCase.UseCase(repository)
+  const createCarUseCase: CreateCarUseCase.UseCase =
+    container.resolve('CreateCarUseCase')
 
   const car = await createCarUseCase.execute({
     model,

@@ -1,6 +1,7 @@
 import { CarsRepository } from '@/cars/domain/repositories/cars.repository'
 import { BadRequestError } from '@/common/domain/errors/bad-request-error'
 import { randomUUID } from 'node:crypto'
+import { inject, injectable } from 'tsyringe'
 
 export namespace CreateCarUseCase {
   export type Input = {
@@ -32,8 +33,12 @@ export namespace CreateCarUseCase {
     description: string
   }
 
+  @injectable()
   export class UseCase {
-    constructor(private repository: CarsRepository) {}
+    constructor(
+      @inject('CarRepository')
+      private carsRepository: CarsRepository,
+    ) {}
 
     async execute(input: Input): Promise<Output> {
       if (
@@ -57,8 +62,8 @@ export namespace CreateCarUseCase {
         accessory.id = accessory.id ?? randomUUID()
       }
 
-      const car = this.repository.create(input)
-      await this.repository.insert(car)
+      const car = this.carsRepository.create(input)
+      await this.carsRepository.insert(car)
 
       return {
         id: car.id,
