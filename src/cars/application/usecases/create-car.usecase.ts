@@ -1,7 +1,9 @@
+import 'reflect-metadata'
 import { CarsRepository } from '@/cars/domain/repositories/cars.repository'
 import { BadRequestError } from '@/common/domain/errors/bad-request-error'
 import { randomUUID } from 'node:crypto'
 import { inject, injectable } from 'tsyringe'
+import { CarOutput } from '../dtos/car-output.dto'
 
 export namespace CreateCarUseCase {
   export type Input = {
@@ -17,21 +19,7 @@ export namespace CreateCarUseCase {
     description?: string
   }
 
-  export type Output = {
-    id: string
-    model: string
-    year: string
-    valuePerDay: number
-    numberOfPassengers: number
-    accessories: TypeAccessoriesOutput[]
-    created_at: Date
-    updated_at: Date
-  }
-
-  export type TypeAccessoriesOutput = {
-    id: string
-    description: string
-  }
+  export type Output = CarOutput
 
   @injectable()
   export class UseCase {
@@ -44,6 +32,7 @@ export namespace CreateCarUseCase {
       if (
         input.valuePerDay < 0 ||
         input.numberOfPassengers < 0 ||
+        !input.accessories ||
         input.accessories.length === 0
       ) {
         throw new BadRequestError('Input data not provided or invalid')
@@ -63,18 +52,9 @@ export namespace CreateCarUseCase {
       }
 
       const car = this.carsRepository.create(input)
-      await this.carsRepository.insert(car)
+      const createdCar: CarOutput = await this.carsRepository.insert(car)
 
-      return {
-        id: car.id,
-        model: car.model,
-        year: car.year,
-        valuePerDay: car.valuePerDay,
-        numberOfPassengers: car.numberOfPassengers,
-        accessories: car.accessories,
-        created_at: car.created_at,
-        updated_at: car.updated_at,
-      }
+      return createdCar
     }
   }
 }

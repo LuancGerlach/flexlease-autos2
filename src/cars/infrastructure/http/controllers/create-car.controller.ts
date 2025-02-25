@@ -1,9 +1,9 @@
 import 'reflect-metadata'
-import { AppError } from '@/common/domain/errors/app-error'
 import { z } from 'zod'
 import { CreateCarUseCase } from '@/cars/application/usecases/create-car.usecase'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
+import { dataValidation } from '@/common/infrastructure/validation/zod'
 
 export async function createCarController(
   request: Request,
@@ -21,24 +21,13 @@ export async function createCarController(
     ),
   })
 
-  const validatedData = createCarBodySchema.safeParse(request.body)
-
-  if (validatedData.success === false) {
-    console.error('Invalid data ', validatedData.error.format())
-    throw new AppError(
-      `${validatedData.error.errors.map(err => {
-        return `${err.path} -> ${err.message}`
-      })}`,
-    )
-  }
-
   const { model, year, valuePerDay, numberOfPassengers, accessories } =
-    validatedData.data
+    dataValidation(createCarBodySchema, request.body)
 
   const createCarUseCase: CreateCarUseCase.UseCase =
     container.resolve('CreateCarUseCase')
 
-  const car = await createCarUseCase.execute({
+  const car: CreateCarUseCase.Input = await createCarUseCase.execute({
     model,
     year,
     valuePerDay,

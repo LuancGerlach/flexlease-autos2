@@ -1,5 +1,8 @@
 import { Router } from 'express'
 import { createCarController } from '../controllers/create-car.controller'
+import { getCarController } from '../controllers/get-car.controller'
+import { updateCarController } from '../controllers/update-car.controller'
+import { deleteCarController } from '../controllers/delete-car.controller'
 
 const carsRouter = Router()
 
@@ -64,12 +67,14 @@ const carsRouter = Router()
  *         created_at: 2023-01-01T10:00:00Z
  *         updated_at: 2023-01-01T10:00:00Z
  */
+
 /**
  * @swagger
  * tags:
  *   name: Cars
  *   description: The cars managing API
  */
+
 /**
  * @swagger
  * /cars:
@@ -93,5 +98,88 @@ const carsRouter = Router()
  *         description: Input data not provided or invalid
  */
 carsRouter.post('/', createCarController)
+
+/**
+ * @swagger
+ * /cars/{id}:
+ *   get:
+ *     summary: Get a car by id
+ *     tags: [Cars]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The car id
+ *     responses:
+ *       201:
+ *         description: The car was successfully found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Car'
+ *       404:
+ *         description: Car not found
+ */
+carsRouter.get('/:id', getCarController)
+
+/**
+ * @swagger
+ * /cars/{id}:
+ *   put:
+ *     summary: Update a car by id
+ *     tags: [Cars]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The car id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Car'
+ *     responses:
+ *       200:
+ *         description: The car was successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Car'
+ *       400:
+ *         description: Input data not provided or invalid
+ *       404:
+ *         description: Car not found
+ */
+carsRouter.put('/:id', updateCarController)
+
+/**
+ * @swagger
+ * /cars/{id}:
+ *   delete:
+ *     summary: Delete a car by id
+ *     tags: [Cars]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The car id
+ *     responses:
+ *       204:
+ *         description: The car was successfully deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Car'
+ *       404:
+ *         description: Car not found
+ */
+carsRouter.delete('/:id', deleteCarController)
 
 export { carsRouter }
