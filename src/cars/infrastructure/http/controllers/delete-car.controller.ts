@@ -10,7 +10,7 @@ export async function deleteCarController(
   response: Response,
 ) {
   const deleteCarBodySchema = z.object({
-    id: z.string(),
+    id: z.string().uuid(),
   })
   const { id } = dataValidation(deleteCarBodySchema, request.params)
 

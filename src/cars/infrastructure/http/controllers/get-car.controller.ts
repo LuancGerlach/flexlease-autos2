@@ -7,7 +7,7 @@ import { dataValidation } from '@/common/infrastructure/validation/zod'
 
 export async function getCarController(request: Request, response: Response) {
   const getCarBodySchema = z.object({
-    id: z.string(),
+    id: z.string().uuid(),
   })
   const { id } = dataValidation(getCarBodySchema, request.params)
 
