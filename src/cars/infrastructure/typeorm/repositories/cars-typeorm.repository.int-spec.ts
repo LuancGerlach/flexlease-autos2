@@ -7,9 +7,11 @@ import { randomUUID } from 'node:crypto'
 
 describe('CarsTypeormRepository Integration Tests', () => {
   let ormRepository: CarsTypeormRepository
+  let typeormEntityManager: any
 
   beforeAll(async () => {
     await testDataSource.initialize()
+    typeormEntityManager = testDataSource.createEntityManager()
   })
 
   afterAll(async () => {
@@ -18,8 +20,9 @@ describe('CarsTypeormRepository Integration Tests', () => {
 
   beforeEach(async () => {
     await testDataSource.manager.query('DELETE FROM cars')
-    ormRepository = new CarsTypeormRepository()
-    ormRepository.carsRepository = testDataSource.getRepository(Car)
+    ormRepository = new CarsTypeormRepository(
+      typeormEntityManager.getRepository(Car),
+    )
   })
 
   describe('findAllByModel', () => {

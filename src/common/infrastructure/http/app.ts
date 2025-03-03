@@ -1,4 +1,5 @@
 import express from 'express'
+import 'express-async-errors'
 import cors from 'cors'
 import { routes } from './router'
 import { errorHandler } from './middlewares/errorHandler'
@@ -13,7 +14,7 @@ const options = {
       version: '1.0.0',
     },
   },
-  apis: [],
+  apis: ['./src/**/http/routes/*.ts'],
 }
 
 const swaggerSpec = swaggerJSDoc(options)
