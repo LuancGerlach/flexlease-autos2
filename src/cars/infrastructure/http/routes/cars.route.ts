@@ -3,6 +3,7 @@ import { createCarController } from '../controllers/create-car.controller'
 import { getCarController } from '../controllers/get-car.controller'
 import { updateCarController } from '../controllers/update-car.controller'
 import { deleteCarController } from '../controllers/delete-car.controller'
+import { searchCarController } from '../controllers/search-car.controller'
 
 const carsRouter = Router()
 
@@ -181,5 +182,67 @@ carsRouter.put('/:id', updateCarController)
  *         description: Car not found
  */
 carsRouter.delete('/:id', deleteCarController)
+
+/**
+ * @swagger
+ * /cars:
+ *   get:
+ *     summary: Returns a paginated list of cars
+ *     tags: [Cars]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: The page number to retrieve
+ *       - in: query
+ *         name: per_page
+ *         schema:
+ *           type: integer
+ *           default: 15
+ *         description: Number of items per page
+ *       - in: query
+ *         name: sort
+ *         schema:
+ *           type: string
+ *           default: null
+ *         description: Field to sort by
+ *       - in: query
+ *         name: sort_dir
+ *         schema:
+ *           type: string
+ *           default: null
+ *         description: Sort direction (asc or desc)
+ *       - in: query
+ *         name: filter
+ *         schema:
+ *           type: string
+ *           default: null
+ *         description: Filter string to search for specific cars
+ *     responses:
+ *       200:
+ *         description: A paginated list of cars
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 total:
+ *                   type: integer
+ *                   description: Total number of cars
+ *                 page:
+ *                   type: integer
+ *                   description: Current page number
+ *                 per_page:
+ *                   type: integer
+ *                   description: Number of cars per page
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Car'
+ */
+
+carsRouter.get('/', searchCarController)
 
 export { carsRouter }
