@@ -4,6 +4,7 @@ import { getCarController } from '../controllers/get-car.controller'
 import { updateCarController } from '../controllers/update-car.controller'
 import { deleteCarController } from '../controllers/delete-car.controller'
 import { searchCarController } from '../controllers/search-car.controller'
+import { updateAccessoryController } from '../controllers/update-acessory.controller'
 
 const carsRouter = Router()
 
@@ -244,5 +245,44 @@ carsRouter.delete('/:id', deleteCarController)
  */
 
 carsRouter.get('/', searchCarController)
+
+/**
+ * @swagger
+ * /cars/{id}/acessories/{id}:
+ *   patch:
+ *     summary: Update an accessory of a car
+ *     tags: [Cars]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The car id
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The accessory id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Car'
+ *     responses:
+ *       200:
+ *         description: The accessory was successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Car'
+ *       400:
+ *         description: Input data not provided or invalid
+ *       404:
+ *         description: Car or accessory not found
+ */
+carsRouter.patch('/:idCar/acessories/:idAccessory', updateAccessoryController)
 
 export { carsRouter }
