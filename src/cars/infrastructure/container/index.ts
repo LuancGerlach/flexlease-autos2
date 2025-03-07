@@ -7,14 +7,19 @@ import { dataSource } from '@/common/infrastructure/typeorm'
 import { UpdateCarUseCase } from '@/cars/application/usecases/update-car.usecase'
 import { DeleteCarUseCase } from '@/cars/application/usecases/delete-car.usecase'
 import { SearchCarUseCase } from '@/cars/application/usecases/search-car.usecase'
+import { UpdateAccessoryUseCase } from '@/cars/application/usecases/update-accessory.usecase'
 
 container.registerSingleton('CarRepository', CarsTypeormRepository)
-container.registerSingleton('CreateCarUseCase', CreateCarUseCase.UseCase)
 container.registerInstance(
   'CarsDefaultTypeormRepository',
   dataSource.getRepository(Car),
 )
+container.registerSingleton('CreateCarUseCase', CreateCarUseCase.UseCase)
 container.registerSingleton('GetCarUseCase', GetCarUseCase.UseCase)
 container.registerSingleton('UpdateCarUseCase', UpdateCarUseCase.UseCase)
+container.registerSingleton(
+  'UpdateAccessoryUseCase',
+  UpdateAccessoryUseCase.UseCase,
+)
 container.registerSingleton('DeleteCarUseCase', DeleteCarUseCase.UseCase)
 container.registerSingleton('SearchCarUseCase', SearchCarUseCase.UseCase)
