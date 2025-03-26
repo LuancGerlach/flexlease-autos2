@@ -1,0 +1,61 @@
+[33m142e97c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeat/users-module[m[33m)[m feat: add TypeORM repository implementation
+[33m6457ce1[m feat: add in-memory repository implementation
+[33me926dcf[m feat: add repository, container, and testing structure
+[33mb3ed205[m feat: create user model interface
+[33m85591e9[m feat: add users migration on database
+[33m3799d6d[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m Merge pull request #25 from LuancGerlach/feature/cars-use-case
+[33m8cdeb99[m[33m ([m[1;31morigin/feature/cars-use-case[m[33m)[m feat: add acessory uptade controller, route and docs
+[33m986de0d[m Merge pull request #24 from LuancGerlach/feature/cars-use-cases
+[33m81ca4ab[m[33m ([m[1;31morigin/feature/cars-use-cases[m[33m)[m feat: Implement car search method
+[33m77a8020[m Merge pull request #23 from LuancGerlach/feature/cars-use-cases
+[33md414acb[m refactor: Correction in display and error handling
+[33md419406[m feat: implements the route for delete cars
+[33mfc06df6[m refactor: Refactor classes to support dependency injection
+[33m115ab0a[m feat: implemets the container for dependency injection
+[33mad90fa0[m docs: add docs for cars route
+[33md8a77fa[m feat: create cars use case
+[33ma7fbcd8[m test: implement tests for create car use case
+[33mfa127e5[m feat: implement create car use case
+[33m8f00519[m Merge pull request #22 from LuancGerlach/test/cars-typeorm-repository
+[33mb6898e9[m[33m ([m[1;31morigin/test/cars-typeorm-repository[m[33m)[m :white_check_mark: test: Add integration tests for Cars TypeORM repository
+[33ma33876e[m Merge pull request #21 from LuancGerlach/feature/cars-typeorm-repository
+[33m1d04479[m[33m ([m[1;31morigin/feature/cars-typeorm-repository[m[33m)[m :sparkles: feat: Implement TypeORM repository methods for Cars
+[33m14db88d[m Merge pull request #20 from LuancGerlach/test/integration-setup
+[33m97f424f[m[33m ([m[1;31morigin/test/integration-setup[m[33m)[m Add initial integration test configuration
+[33m5b35d78[m Merge pull request #19 from LuancGerlach/feature/cars-typeorm-setup
+[33m0552522[m[33m ([m[1;31morigin/feature/cars-typeorm-setup[m[33m)[m :sparkles: feat: Create initial TypeORM structure for Cars
+[33mb3050d6[m Merge pull request #18 from LuancGerlach/test/cars-in-memory-repository
+[33m8b27330[m[33m ([m[1;31morigin/test/cars-in-memory-repository[m[33m)[m :white_check_mark: test: Add unit tests for CarsInMemoryRepository with DataBuilder
+[33mde948f5[m Merge pull request #17 from LuancGerlach/feature/cars-in-memory-repository
+[33m90ffb76[m[33m ([m[1;31morigin/feature/cars-in-memory-repository[m[33m)[m :sparkles: feat: Implement CarsInMemoryRepository
+[33m99a4a3e[m Merge pull request #16 from LuancGerlach/feature/cars-repository-interface
+[33m3b3b916[m[33m ([m[1;31morigin/feature/cars-repository-interface[m[33m)[m :sparkles: feat: Define repository interface for cars
+[33mff561e7[m Merge pull request #15 from LuancGerlach/test/in-memory-repository
+[33mfd9da97[m[33m ([m[1;31morigin/test/in-memory-repository[m[33m)[m :white_check_mark: test: Add unit tests for InMemoryRepository
+[33m508bb2e[m Merge pull request #14 from LuancGerlach/chore/jest-setup
+[33mdd37bb6[m[33m ([m[1;31morigin/chore/jest-setup[m[33m)[m :wrench: chore: Install and configure Jest
+[33mdf1f4f7[m Merge pull request #13 from LuancGerlach/feature/in-memory-repository
+[33m6442bf6[m[33m ([m[1;31morigin/feature/in-memory-repository[m[33m)[m :sparkles: feat: Implement abstraction for InMemoryRepository
+[33m7c6eb2f[m Merge pull request #12 from LuancGerlach/feature/repository-contracts
+[33me8bba13[m[33m ([m[1;31morigin/feature/repository-contracts[m[33m)[m :sparkles: feat: Add abstraction with contract definitions for repositories
+[33m2312555[m Merge pull request #11 from LuancGerlach/feature/cars-entity
+[33m0ac6cb0[m[33m ([m[1;31morigin/feature/cars-entity[m[33m)[m :sparkles: feat: Implement TypeORM entity for cars
+[33m3edc852[m Merge pull request #10 from LuancGerlach/feature/cars-model
+[33mf79f895[m[33m ([m[1;31morigin/feature/cars-model[m[33m)[m :sparkles: feat: Define data model interface for cars
+[33m8257fee[m Merge pull request #9 from LuancGerlach/feature/cars-migration
+[33m259f3fc[m[33m ([m[1;31morigin/feature/cars-migration[m[33m)[m :sparkles: feat: Add database migration for cars table
+[33m87e8864[m Merge pull request #8 from LuancGerlach/feature/mongo-typeorm
+[33m297407e[m[33m ([m[1;31morigin/feature/mongo-typeorm[m[33m)[m :sparkles: feat: Configure MongoDB with TypeORM
+[33m86eb815[m Merge pull request #7 from LuancGerlach/chore/typeorm-setup
+[33m1adca91[m[33m ([m[1;31morigin/chore/typeorm-setup[m[33m)[m :wrench: chore: Add basic TypeORM configuration
+[33m5faae44[m Merge pull request #6 from LuancGerlach/docs/swagger-setup
+[33m7e4ae51[m[33m ([m[1;31morigin/docs/swagger-setup[m[33m)[m :books: docs: Add Swagger configuration for API documentation
+[33md3424b0[m Merge pull request #5 from LuancGerlach/chore/env-setup
+[33mda02378[m[33m ([m[1;31morigin/chore/env-setup[m[33m)[m :wrench: chore: Configure environment variables with .env
+[33m9b5990d[m Merge pull request #4 from LuancGerlach/feature/error-handling
+[33med6120d[m[33m ([m[1;31morigin/feature/error-handling[m[33m)[m :sparkles: feat: Customize API error handling
+[33mfed2b53[m Merge pull request #3 from LuancGerlach/feature/express-setup
+[33ma8c5cdd[m[33m ([m[1;31morigin/feature/express-setup[m[33m)[m :sparkles: feat: Add initial Express route and configuration
+[33m9d8de61[m Merge pull request #1 from LuancGerlach/init/project-structure
+[33mde2fe5f[m[33m ([m[1;31morigin/init/project-structure[m[33m)[m :tada: init: Initial project folder structure
+[33m772e091[m Initial project structure
