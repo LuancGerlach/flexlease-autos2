@@ -45,6 +45,13 @@ export class UsersTypeormRepository implements UsersRepository {
     }
   }
 
+  async conflictingCpf(cpf: string): Promise<void> {
+    const user = await this.usersRepository.findOneBy({ cpf })
+    if (user) {
+      throw new ConflictError('Cpf already used on another user')
+    }
+  }
+
   create(props: CreateUserProps): UserModel {
     return this.usersRepository.create(props)
   }

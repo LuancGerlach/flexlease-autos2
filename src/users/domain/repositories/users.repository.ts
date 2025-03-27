@@ -22,4 +22,5 @@ export interface UsersRepository
   findByEmail(email: string): Promise<UserModel>
   findByName(name: string): Promise<UserModel>
   conflictingEmail(email: string): Promise<void>
+  conflictingCpf(cpf: string): Promise<void>
 }

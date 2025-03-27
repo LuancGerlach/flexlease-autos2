@@ -154,6 +154,18 @@ describe('UsersTypeormRepository integration tests', () => {
     })
   })
 
+  describe('conflictingCpf', () => {
+    it('should generate an error when the user found', async () => {
+      const data = UsersDataBuilder({ cpf: '368.482.240-06' })
+      const user = testDataSource.manager.create(User, data)
+      await testDataSource.manager.save(user)
+
+      await expect(
+        ormRepository.conflictingCpf('368.482.240-06'),
+      ).rejects.toThrow(new ConflictError(`Cpf already used on another user`))
+    })
+  })
+
   describe('search', () => {
     it('should apply only pagination when the other params are null', async () => {
       const arrange = Array(16).fill(UsersDataBuilder({}))

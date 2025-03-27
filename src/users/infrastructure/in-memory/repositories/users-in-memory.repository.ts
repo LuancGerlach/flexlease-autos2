@@ -33,6 +33,13 @@ export class UsersInMemoryRepository
     }
   }
 
+  async conflictingCpf(cpf: string): Promise<void> {
+    const model = this.items.find(item => item.cpf === cpf)
+    if (model) {
+      throw new ConflictError('Cpf already used on another user')
+    }
+  }
+
   protected async applyFilter(
     items: UserModel[],
     filter: string,
