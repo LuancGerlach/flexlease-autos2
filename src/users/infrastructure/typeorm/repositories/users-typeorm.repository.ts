@@ -18,7 +18,7 @@ export class UsersTypeormRepository implements UsersRepository {
   sortableFields: string[] = ['name', 'birth', 'created_at']
 
   constructor(
-    @inject('UsersDefaultTypeormRepository')
+    @inject('UsersDefaultRepositoryTypeorm')
     private usersRepository: Repository<User>,
   ) {}
 
@@ -56,8 +56,8 @@ export class UsersTypeormRepository implements UsersRepository {
     return this.usersRepository.create(props)
   }
 
-  insert(model: UserModel): Promise<UserModel> {
-    return this.usersRepository.save(model)
+  async insert(model: UserModel): Promise<UserModel> {
+    return await this.usersRepository.save(model)
   }
 
   async findById(id: string): Promise<UserModel> {
