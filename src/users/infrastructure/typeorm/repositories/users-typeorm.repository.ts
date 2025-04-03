@@ -18,7 +18,7 @@ export class UsersTypeormRepository implements UsersRepository {
   sortableFields: string[] = ['name', 'birth', 'created_at']
 
   constructor(
-    @inject('UsersDefaultTypeormRepository')
+    @inject('UsersDefaultRepositoryTypeorm')
     private usersRepository: Repository<User>,
   ) {}
 
@@ -45,12 +45,19 @@ export class UsersTypeormRepository implements UsersRepository {
     }
   }
 
+  async conflictingCpf(cpf: string): Promise<void> {
+    const user = await this.usersRepository.findOneBy({ cpf })
+    if (user) {
+      throw new ConflictError('Cpf already used on another user')
+    }
+  }
+
   create(props: CreateUserProps): UserModel {
     return this.usersRepository.create(props)
   }
 
-  insert(model: UserModel): Promise<UserModel> {
-    return this.usersRepository.save(model)
+  async insert(model: UserModel): Promise<UserModel> {
+    return await this.usersRepository.save(model)
   }
 
   async findById(id: string): Promise<UserModel> {

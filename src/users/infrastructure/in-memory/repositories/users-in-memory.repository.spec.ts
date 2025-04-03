@@ -65,6 +65,24 @@ describe('UsersInMemoryRepository Unit Tests', () => {
     })
   })
 
+  describe('conflictingCpf', () => {
+    it('should throw error when user found', async () => {
+      const user = UsersDataBuilder({ cpf: '368.482.240-06' })
+      await sut.insert(user)
+      await expect(sut.conflictingCpf('368.482.240-06')).rejects.toThrow(
+        ConflictError,
+      )
+      await expect(sut.conflictingCpf('368.482.240-06')).rejects.toThrow(
+        new ConflictError('Cpf already used on another user'),
+      )
+    })
+
+    it('should not find a user by cpf', async () => {
+      expect.assertions(0)
+      await sut.conflictingCpf('368.482.240-06')
+    })
+  })
+
   describe('applyFilter', () => {
     it('should no filter items when filter object is null', async () => {
       const user = UsersDataBuilder({})

@@ -1,12 +1,12 @@
-export interface UserModel {
+export type UserOutput = {
   id: string
   name: string
   cpf: string
   birth: string
   email: string
   password: string
-  qualified: string
   cep: string
+  qualified: string
   patio: string
   complement: string
   neighborhood: string
